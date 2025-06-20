@@ -19,7 +19,7 @@ RUN git clone https://github.com/comfyanonymous/ComfyUI.git /app && \
 
 RUN git clone https://github.com/ltdrdata/ComfyUI-Manager.git /opt/comfyui-manager && \
     cd /opt/comfyui-manager && \
-    git -c advice.detachedHead=false checkout tags/3.33.0
+    git -c advice.detachedHead=false checkout tags/3.33
 
 RUN pip install --root-user-action=ignore \
     --requirement /app/requirements.txt \
