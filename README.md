@@ -27,13 +27,15 @@ podman run \
     --volume "</path/to/custom_nodes/folder>:/app/custom_nodes:rw" \
     --volume "</path/to/input>:/app/input:rw" \
     --volume "</path/to/output>:/app/output:rw" \
-    --volume "</path/to/workflows>:/app/user/default/workflows:rw" \
+    --volume "</path/to/userdata>:/app/user/default:rw" \
     --publish <desired-port>:8188 \
     --gpus all \
     ghcr.io/siggnal460/comfyui-container-cuda:latest
 ```
 
 ## nix oci-containers
+
+Tested on NixOS 25.05 'Warbler'
 
 ```nix
 virtualisation.oci-containers.containers = {
@@ -44,7 +46,7 @@ virtualisation.oci-containers.containers = {
       "</path/to/models/folder>:/app/models:rw"
       "</path/to/input>:/app/input:rw"
       "</path/to/output>:/app/output:rw"
-      "</path/to/workflows>:/app/user/default/workflows:rw"
+      "</path/to/userdata>:/app/user/default:rw"
       "</path/to/custom_nodes>:/app/custom_nodes:rw"
     ];
     environment = {
@@ -59,5 +61,3 @@ virtualisation.oci-containers.containers = {
   };
 };
 ```
-
-Tested on NixOS 25.05 'Warbler'
