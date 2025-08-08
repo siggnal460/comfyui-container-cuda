@@ -1,8 +1,8 @@
-FROM docker.io/pytorch/pytorch:2.7.1-cuda12.8-cudnn9-runtime
+FROM docker.io/pytorch/pytorch:2.8.0-cuda12.9-cudnn9-runtime
 
-LABEL version="1.8" maintainer="siggnal460 <siggnal@proton.me>"
+LABEL version="2.0" maintainer="siggnal460 <siggnal@proton.me>"
 
-LABEL org.opencontainers.image.description "ComfyUI 0.3.46, ComfyUI-Manager 3.35, pytorch 2.7.1, CUDA 12.8"
+LABEL org.opencontainers.image.description "ComfyUI 0.3.49, ComfyUI-Manager 3.35, pytorch 2.8.0, CUDA 12.9"
 
 ENV COMFYUI_ARGS=""
 
@@ -17,7 +17,7 @@ RUN apt update --assume-yes && \
 
 RUN git clone https://github.com/comfyanonymous/ComfyUI.git /app && \
     cd /app && \
-    git -c advice.detachedHead=false checkout tags/v0.3.46
+    git -c advice.detachedHead=false checkout tags/v0.3.49
 
 RUN git clone https://github.com/ltdrdata/ComfyUI-Manager.git /opt/comfyui-manager && \
     cd /opt/comfyui-manager && \
@@ -34,5 +34,3 @@ EXPOSE 8188
 ADD entrypoint.sh /entrypoint.sh
 
 ENTRYPOINT ["/usr/bin/bash", "/entrypoint.sh"]
-
-CMD ["/opt/conda/bin/python", "main.py", "--listen", "0.0.0.0", "--port", "8188", "--disable-auto-launch"]

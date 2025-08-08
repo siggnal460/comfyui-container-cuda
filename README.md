@@ -9,11 +9,15 @@ A simple ComfyUI and ComfyUI-Manager container based on the latest PyTorch image
 
 ### COMFYUI_ARGS
 
-You can pass additional arguments to ComfyUI's main.py script via this env variable. For example, `COMFYUI_ARGS="--low-vram"` will run ComfyUI in low-vram mode.
+You can pass additional arguments to ComfyUI's main.py script via this env variable. For example, `COMFYUI_ARGS="--lowvram --preview-method auto"` will run ComfyUI in low-vram mode with preview mode set to auto.
 
 ### PUID and PGID
 
 Set PUID and PGID environmental variables to the user running the ComfyUI service, I recommend using a service account for this. If these are not set, the container will be run by the user running the container. If using PUID and PGID, ensure whatever folders you mount in the container with the "volume" flag are accessible to that PUID and PGID.
+
+## podman-compose
+
+An example Podman compose file is provided.
 
 ## podman run
 

@@ -1,0 +1,27 @@
+version: "3"
+services:
+    comfyui-container:
+        container_name: comfyui-example
+        environment:
+            - PUID=780
+            - PGID=780
+            - COMFYUI_ARGS="--lowvram --preview-method auto"
+        volumes:
+            - /var/lib/comfyui/models:/app/models:rw
+            #- /var/lib/comfyui/custom_nodes:/app/custom_nodes:rw
+            - /var/lib/comfyui/input:/app/input:rw
+            - /var/lib/comfyui/output:/app/output:rw
+            - /var/lib/comfyui/user:/app/user/default:rw
+            #- /var/lib/comfyui/workflows:/app/user/default/workflows:rw
+        ports:
+            - 8189:8188
+        deploy:
+            resources:
+                reservations:
+                    devices:
+                        - driver: nvidia
+                          count: all
+                          capabilities:
+                              - gpu
+        image: comfyui-container-cuda
+        # image: ghcr.io/siggnal460/comfyui-container-cuda:latest

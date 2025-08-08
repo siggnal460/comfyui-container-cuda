@@ -54,17 +54,16 @@ for custom_node_directory in /app/custom_nodes/*; do
 done
 
 ## RUN CONTAINER
+launch_cmd="/opt/conda/bin/python main.py --listen 0.0.0.0 --port 8188 --disable-auto-launch"
+args="${COMFYUI_ARGS//\"/}" # Remove quotes
+
 if [[ ! -z "$COMFYUI_ARGS" ]]; then
-  emphatic_echo "Running with these extra arguments: ${COMFYUI_ARGS}"
+  launch_cmd+=" $args"
+  emphatic_echo "Running container with extra arguments $args..."
 fi
 
 if [ -z "$PUID" ] || [ -z "$PGID" ]; then
   emphatic_echo "Running container as UID $UID..."
-  if [[ -z "$COMFYUI_ARGS" ]]; then
-    exec "$@"
-  else
-    exec /opt/conda/bin/python main.py --listen 0.0.0.0 --port 8188 --disable-auto-launch "${COMFYUI_ARGS}"
-  fi
 else
   emphatic_echo "Creating non-root user..."
   getent group $PGID >/dev/null 2>&1 || groupadd --gid $PGID comfyui-user
@@ -72,11 +71,10 @@ else
   chown --recursive $PUID:$PGID /app
   chown --recursive $PUID:$PGID /opt/comfyui-manager
   export PATH=$PATH:/home/comfyui-user/.local/bin
-
+  sudo_cmd="sudo --set-home --preserve-env=PATH --user #$PUID "
+  launch_cmd="${sudo_cmd}${launch_cmd}"
   emphatic_echo "Running container as UID $PUID and GID $PGID..."
-  if [[ -z "$COMFYUI_ARGS" ]]; then
-    sudo --set-home --preserve-env=PATH --user \#$PUID "$@"
-  else
-    sudo --set-home --preserve-env=PATH --user \#$PUID /opt/conda/bin/python main.py --listen 0.0.0.0 --port 8188 --disable-auto-launch "${COMFYUI_ARGS}"
-  fi
 fi
+
+emphatic_echo "Launch command: $launch_cmd"
+exec $launch_cmd
