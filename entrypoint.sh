@@ -55,10 +55,11 @@ done
 
 ## RUN CONTAINER
 launch_cmd="/opt/conda/bin/python main.py --listen 0.0.0.0 --port 8188 --disable-auto-launch"
-args="${COMFYUI_ARGS//\"/}" # Remove quotes
 
 if [[ ! -z "$COMFYUI_ARGS" ]]; then
+  args="${COMFYUI_ARGS//\"/}" # Remove quotes
   launch_cmd+=" $args"
+  echo "$args"
   emphatic_echo "Running container with extra arguments $args..."
 fi
 
