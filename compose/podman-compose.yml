@@ -1,0 +1,25 @@
+version: "3"
+services:
+    comfyui-container:
+        container_name: comfyui
+        environment:
+            - PUID=1000
+            - PGID=1000
+        volumes:
+            - ./models:/app/models:rw
+            - ./custom_nodes:/app/custom_nodes:rw
+            - ./input:/app/input:rw
+            - ./output:/app/output:rw
+            - ./user:/app/user/default:rw
+            - ./workflows:/app/user/default/workflows:rw
+        ports:
+            - 8188:8188
+        deploy:
+            resources:
+                reservations:
+                    devices:
+                        - driver: nvidia
+                          count: all
+                          capabilities:
+                              - gpu
+        image: ghcr.io/siggnal460/comfyui-container-cuda:latest

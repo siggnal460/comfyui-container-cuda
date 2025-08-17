@@ -3,23 +3,17 @@
 A simple ComfyUI and ComfyUI-Manager container based on the latest PyTorch image. Should (mostly) work with the latest NVIDIA GPUs.
 
 > [!WARNING]
-> Custom node compatability is not guaranteed to work with this container. If you run into issue, best you can try is to switch to the custom node's "nightly" branch if it has one. Beware the "Try Fix" button in ComfyUI-Manager, it may overwrite some packages with older versions and break things. Because dependencies are installed on container start, the more custom nodes you have the longer the startup process will be. This does not apply, however, when restarting it from within e.g. through ComfyUI-Manager.
+> Custom node compatability is not guaranteed to work with this container. If you run into issue, best you can try is to switch to the custom node's "nightly" branch if it has one. Beware the "Try Fix" button in ComfyUI-Manager, it CAN work but it may also overwrite some packages with older versions and break things. Because dependencies are installed on container start, the more custom nodes you have the longer the startup process will be. This only applies to a container cold start, however, not when doing so from within ComfyUI e.g. with the "Restart" button within ComfyUI-Manager.
 
 ## Installation
 
-### COMFYUI_ARGS
+Podman is used with these examples as that is what I use. I don't imagine you would need to make many tweaks (if at all) to use these exammples with Docker, however.
 
-You can pass additional arguments to ComfyUI's main.py script via this env variable. For example, `COMFYUI_ARGS="--lowvram --preview-method auto"` will run ComfyUI in low-vram mode with preview mode set to auto.
+### podman-compose
 
-### PUID and PGID
+Simply `cd` to the compose directory and (with podman-compose installed) run `podman-compose up` to get a quickstart config up and running. This will create all the necessary container volumes within that directory.
 
-Set PUID and PGID environmental variables to the user running the ComfyUI service, I recommend using a service account for this. If these are not set, the container will be run by the user running the container. If using PUID and PGID, ensure whatever folders you mount in the container with the "volume" flag are accessible to that PUID and PGID.
-
-## podman-compose
-
-An example Podman compose file is provided.
-
-## podman run
+### podman run
 
 ```shell
 podman run \
@@ -37,7 +31,7 @@ podman run \
     ghcr.io/siggnal460/comfyui-container-cuda:latest
 ```
 
-## nix oci-containers
+### Nix OCI Container
 
 Tested on NixOS 25.05 'Warbler'
 
@@ -65,3 +59,14 @@ virtualisation.oci-containers.containers = {
   };
 };
 ```
+
+## Environmental Variables
+
+### COMFYUI_ARGS
+
+You can pass additional arguments to ComfyUI's main.py script via this env variable. For example, `COMFYUI_ARGS="--lowvram --preview-method auto"` will run ComfyUI in low-vram mode with preview mode set to auto.
+
+### PUID and PGID
+
+Set PUID and PGID environmental variables to the user running the ComfyUI service, I recommend using a service account for this. If these are not set, the container will be run by the user running the container. If using PUID and PGID, ensure whatever folders you mount in the container with the "volume" flag are accessible to that UID and GID.
+
