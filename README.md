@@ -70,3 +70,11 @@ You can pass additional arguments to ComfyUI's main.py script via this env varia
 
 Set PUID and PGID environmental variables to the user running the ComfyUI service, I recommend using a service account for this. If these are not set, the container will be run by the user running the container. If using PUID and PGID, ensure whatever folders you mount in the container with the "volume" flag are accessible to that UID and GID.
 
+## Versioning
+
+Major versions of the container follow CUDA and PyTorch, so keep that in mind for compatibility.
+
+| Major Version | CUDA Version | PyTorch Version |
+| --- | --- | --- |
+| 1.x | 12.8 | 2.7.x |
+| 2.x | 12.9 | 2.8.x |
