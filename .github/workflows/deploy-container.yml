@@ -4,7 +4,7 @@ env:
   IMAGE_REGISTRY: ghcr.io/${{ github.repository_owner }}
   IMAGE_REGISTRY_USER: ${{ github.actor }}
   IMAGE_REGISTRY_PASSWORD: ${{ github.token }}
-  IMAGE_TAGS: "latest v2.0"
+  IMAGE_TAGS: "latest v2.1"
   APP_NAME: "comfyui-container-cuda"
 
 on:
