@@ -3,15 +3,15 @@
 A simple ComfyUI and ComfyUI-Manager container based on the latest PyTorch image. Should (mostly) work with the latest NVIDIA GPUs.
 
 > [!WARNING]
-> Custom node compatability is not guaranteed to work with this container. If you run into issue, best you can try is to switch to the custom node's "nightly" branch if it has one. Beware the "Try Fix" button in ComfyUI-Manager, it CAN work but it may also overwrite some packages with older versions and break things. Because dependencies are installed on container start, you will probably need to retart the container (`podman restart comfyui`) to get any Python dependencies. This also means the more custom nodes you have, the longer the startup process will be. This only applies to a container cold start, however, not when doing so from within ComfyUI e.g. with the "Restart" button within ComfyUI-Manager.
+> Custom node compatability is not guaranteed to work with this container. If you run into issue, best you can try is to switch to the custom node's "nightly" branch if it has one. Beware the "Try Fix" button in ComfyUI-Manager, it *can* work but it may also overwrite some packages with older versions and break things. Because dependencies are installed on container start, when installing custom nodes you will probably need to retart the container (i.e. `podman restart comfyui`) to get any Python dependencies. This also means the more custom nodes you have, the longer the startup process will be. This only applies to a container cold start, however, not when doing so from within ComfyUI e.g. with the "Restart" button within ComfyUI-Manager.
 
 ## Installation
 
-Podman is used with these examples as that is what I use. I don't imagine you would need to make many tweaks (if at all) to use these exammples with Docker, however.
+Podman is used with these examples as that is what I use. I don't imagine you would need to make many tweaks (if at all) to use these examples with Docker, however.
 
 ### podman-compose
 
-Simply `cd` to the compose directory and (with podman-compose installed) run `podman-compose up` to get a quickstart config up and running. This will create all the necessary container volumes within that directory.
+Simply `cd` to the compose directory and (e.g., running podman with podman-compose installed) run `podman-compose up` to get a quickstart config up and running. This will create all the necessary container volumes within that directory and run the service as UID 1000.
 
 ### podman run
 
