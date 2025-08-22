@@ -3,7 +3,7 @@
 A simple ComfyUI and ComfyUI-Manager container based on the latest PyTorch image. Should (mostly) work with the latest NVIDIA GPUs.
 
 > [!WARNING]
-> Custom node compatability is not guaranteed to work with this container. If you run into issue, best you can try is to switch to the custom node's "nightly" branch if it has one. Beware the "Try Fix" button in ComfyUI-Manager, it CAN work but it may also overwrite some packages with older versions and break things. Because dependencies are installed on container start, the more custom nodes you have the longer the startup process will be. This only applies to a container cold start, however, not when doing so from within ComfyUI e.g. with the "Restart" button within ComfyUI-Manager.
+> Custom node compatability is not guaranteed to work with this container. If you run into issue, best you can try is to switch to the custom node's "nightly" branch if it has one. Beware the "Try Fix" button in ComfyUI-Manager, it CAN work but it may also overwrite some packages with older versions and break things. Because dependencies are installed on container start, you will probably need to retart the container (`podman restart comfyui`) to get any Python dependencies. This also means the more custom nodes you have, the longer the startup process will be. This only applies to a container cold start, however, not when doing so from within ComfyUI e.g. with the "Restart" button within ComfyUI-Manager.
 
 ## Installation
 
