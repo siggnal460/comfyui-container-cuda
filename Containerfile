@@ -1,8 +1,8 @@
 FROM docker.io/pytorch/pytorch:2.8.0-cuda12.9-cudnn9-runtime
 
-LABEL version="2.1" maintainer="siggnal460 <siggnal@proton.me>"
+LABEL version="2.2" maintainer="siggnal460 <siggnal@proton.me>"
 
-LABEL org.opencontainers.image.description "ComfyUI 0.3.51, ComfyUI-Manager 3.35, pytorch 2.8.0, CUDA 12.9"
+LABEL org.opencontainers.image.description "ComfyUI 0.3.52, ComfyUI-Manager 3.35, pytorch 2.8.0, CUDA 12.9"
 
 ENV COMFYUI_ARGS=""
 
@@ -17,7 +17,7 @@ RUN apt update --assume-yes && \
 
 RUN git clone https://github.com/comfyanonymous/ComfyUI.git /app && \
     cd /app && \
-    git -c advice.detachedHead=false checkout tags/v0.3.51
+    git -c advice.detachedHead=false checkout tags/v0.3.52
 
 RUN git clone https://github.com/ltdrdata/ComfyUI-Manager.git /opt/comfyui-manager && \
     cd /opt/comfyui-manager && \
