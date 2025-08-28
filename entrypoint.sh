@@ -10,6 +10,7 @@ emphatic_echo() {
 ## CREATE MODEL DIRS
 emphatic_echo "Creating directories for models..."
 MODEL_DIRECTORIES=(
+  "audio_encoders"
   "checkpoints"
   "clip"
   "clip_vision"
