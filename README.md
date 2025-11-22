@@ -1,6 +1,6 @@
 # comfyui-container-cuda
 
-A simple ComfyUI and ComfyUI-Manager container based on the latest PyTorch image. Should (mostly) work with the latest NVIDIA GPUs.
+A simple ComfyUI and ComfyUI-Manager container.
 
 > [!TIP]
 > Custom node compatability (while generally good) is not guaranteed to work with this container. If you run into issue, best you can try is to switch to the custom node's "nightly" branch if it has one. Beware the "Try Fix" button in ComfyUI-Manager, it *can* work but it may also overwrite some packages with older versions and break things.
@@ -14,7 +14,7 @@ Podman is used with these examples as that is what I use. I don't imagine you wo
 
 ### podman-compose
 
-Simply `cd` to the compose directory and (e.g., running podman with podman-compose installed) run `podman-compose up` to get a quickstart config up and running. This will create all the necessary container volumes within that directory and run the service as UID 1000.
+An example compose file is provided in the compose directory. To get a quickstart instance up and running, simply `cd` to the compose directory and (e.g., running podman with podman-compose installed) run `podman-compose up`. This will create all the necessary container volumes within that directory and run the service as UID 1000.
 
 ### podman run
 
@@ -75,7 +75,7 @@ Set PUID and PGID environmental variables to the user running the ComfyUI servic
 
 ## Versioning
 
-Major versions of the container follow CUDA and PyTorch, so keep that in mind for compatibility.
+Major versions of the container follow CUDA and PyTorch. Ensure you use a container version matching your host machines CUDA version.
 
 | Major Version | CUDA Version | PyTorch Version |
 | --- | --- | --- |

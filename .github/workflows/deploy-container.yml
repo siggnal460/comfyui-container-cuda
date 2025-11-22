@@ -4,13 +4,13 @@ env:
   IMAGE_REGISTRY: ghcr.io/${{ github.repository_owner }}
   IMAGE_REGISTRY_USER: ${{ github.actor }}
   IMAGE_REGISTRY_PASSWORD: ${{ github.token }}
-  IMAGE_TAGS: "latest v2.5"
+  IMAGE_TAGS: "v2.6 latest"
   APP_NAME: "comfyui-container-cuda"
 
 on:
   workflow_dispatch:
   push:
-    branches: [ "master" ]
+    branches: [ "master" "cuda12.9" ]
 
 jobs:
 
