@@ -10,7 +10,7 @@ env:
 on:
   workflow_dispatch:
   push:
-    branches: [ "master" "cuda12.9" ]
+    branches: [ "master", "cuda12.9" ]
 
 jobs:
 
