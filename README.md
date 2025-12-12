@@ -36,7 +36,7 @@ podman run \
 
 ### Nix OCI Container
 
-Tested on NixOS 25.05 'Warbler'
+Tested on NixOS 25.11 'Xantusia'
 
 ```nix
 virtualisation.oci-containers.containers = {
@@ -81,3 +81,4 @@ Major versions of the container follow CUDA and PyTorch. Ensure you use a contai
 | --- | --- | --- |
 | 1.x | 12.8 | 2.7.x |
 | 2.x | 12.9 | 2.8.x |
+| 3.x | 13.0 | 2.9.x |
