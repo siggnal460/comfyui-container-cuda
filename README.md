@@ -10,7 +10,7 @@ A simple ComfyUI and ComfyUI-Manager container.
 Podman is used with these examples as that is what I use. I don't imagine you would need to make many tweaks (if at all) to use these examples with Docker, however.
 
 > [!IMPORTANT]
-> Note for 3.1.3: While preferably we would listen on broadcast in the container and allow port mappings, we have switched to `network="host"`. This is due to a new Comfyui-Manager quirk which forbids installing custom nodes when ComfyUI listens on an address other than loopback.
+> Note for 3.1.2: While preferably we would listen on broadcast in the container and allow port mappings, we have switched to `network="host"`. This is due to a new Comfyui-Manager quirk which forbids installing custom nodes when ComfyUI listens on an address other than loopback.
 
 > [!IMPORTANT]
 > Because Python dependencies are installed on container start, when installing custom nodes you will probably need to restart the container completely (i.e. `podman restart comfyui`) for it to work. This also means the more custom nodes you have, the longer the startup process will be. This only applies to a container cold start, however, not when doing so from within ComfyUI e.g. with the "Restart" button within ComfyUI-Manager.
@@ -58,9 +58,9 @@ virtualisation.oci-containers.containers = {
       COMFYUI_ARGS = "<desired-arguments>";
     };
     cmd = [
-      "--network='host'"
     ];
     extraOptions = [
+      "--network='host'"
       "--name=comfyui"
       "--gpus=all"
     ];
