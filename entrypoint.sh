@@ -48,7 +48,7 @@ for custom_node_directory in /app/custom_nodes/*; do
 done
 
 ## RUN CONTAINER
-launch_cmd="/opt/conda/bin/python main.py --listen 127.0.0.1 --port 8189 --disable-auto-launch --enable-manager"
+launch_cmd="/opt/conda/bin/python main.py --listen 127.0.0.1 --port 8188 --disable-auto-launch --enable-manager"
 
 if [[ ! -z "$COMFYUI_ARGS" ]]; then
   args="${COMFYUI_ARGS//\"/}" # Remove quotes
