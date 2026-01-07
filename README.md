@@ -60,7 +60,7 @@ virtualisation.oci-containers.containers = {
     cmd = [
     ];
     extraOptions = [
-      "--network='host'"
+      "--network=host"
       "--name=comfyui"
       "--gpus=all"
     ];
