@@ -10,10 +10,10 @@ A simple ComfyUI and ComfyUI-Manager container.
 Podman is used with these examples as that is what I use. I don't imagine you would need to make many tweaks (if at all) to use these examples with Docker, however.
 
 > [!IMPORTANT]
-> Note for 3.1.2: While preferably we would listen on broadcast in the container and allow port mappings, we have switched to `network="host"`. This is due to a new Comfyui-Manager quirk which forbids installing custom nodes when ComfyUI listens on an address other than loopback.
+> Because Python dependencies are installed on container start, when installing custom nodes you will probably need to restart the container completely (i.e. `podman restart comfyui`) for it to work. This also means the more custom nodes you have, the longer the startup process will be. This only applies to a container cold start, however, not when doing so from within ComfyUI e.g. with the "Restart" button within ComfyUI-Manager.
 
 > [!IMPORTANT]
-> Because Python dependencies are installed on container start, when installing custom nodes you will probably need to restart the container completely (i.e. `podman restart comfyui`) for it to work. This also means the more custom nodes you have, the longer the startup process will be. This only applies to a container cold start, however, not when doing so from within ComfyUI e.g. with the "Restart" button within ComfyUI-Manager.
+> You may need to change the settings in your userdata folder in __manager/config.ini in order to install custom nodes or perform other actions
 
 ### podman-compose
 
@@ -31,7 +31,7 @@ podman run \
     --volume "</path/to/custom_nodes/folder>:/app/custom_nodes:rw" \
     --volume "</path/to/input>:/app/input:rw" \
     --volume "</path/to/output>:/app/output:rw" \
-    --volume "</path/to/userdata>:/app/user/default:rw" \
+    --volume "</path/to/userdata>:/app/user:rw" \
     --network="host"
     --gpus all \
     ghcr.io/siggnal460/comfyui-container-cuda:latest
@@ -49,7 +49,7 @@ virtualisation.oci-containers.containers = {
       "</path/to/models/folder>:/app/models:rw"
       "</path/to/input>:/app/input:rw"
       "</path/to/output>:/app/output:rw"
-      "</path/to/userdata>:/app/user/default:rw"
+      "</path/to/userdata>:/app/user:rw"
       "</path/to/custom_nodes>:/app/custom_nodes:rw"
     ];
     environment = {
@@ -57,10 +57,7 @@ virtualisation.oci-containers.containers = {
       PGID = "<desired-gid>";
       COMFYUI_ARGS = "<desired-arguments>";
     };
-    cmd = [
-    ];
     extraOptions = [
-      "--network=host"
       "--name=comfyui"
       "--gpus=all"
     ];
@@ -78,16 +75,12 @@ You can pass additional arguments to ComfyUI's main.py script via this env varia
 
 Set PUID and PGID environmental variables to the user running the ComfyUI service, I recommend using a service account for this. If these are not set, the container will be run by the user running the container. If using PUID and PGID, ensure whatever folders you mount in the container with the "volume" flag are accessible to that UID and GID.
 
-## ComfyUI-Manager Defaults
-
-By default, the container uses Security Level "normal", which allows for the installation of custom nodes but disables some features. There is not currently a way to change this behavior.
-
 ## Versioning
 
-Major versions of the container follow CUDA and PyTorch. Ensure you use a container version matching your host machines CUDA version.
+Major versions of the container follow CUDA versioning. Ensure you use a container version matching your host machines CUDA version.
 
-| Major Version | CUDA Version | PyTorch Version |
-| --- | --- | --- |
-| 1.x | 12.8 | 2.7.x |
-| 2.x | 12.9 | 2.8.x |
-| 3.x | 13.0 | 2.9.x |
+| Major Version | CUDA Version |
+| --- | --- |
+| 1.x | 12.8 |
+| 2.x | 12.9 |
+| 3.x | 13.0 |

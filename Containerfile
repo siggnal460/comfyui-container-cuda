@@ -1,15 +1,21 @@
 FROM docker.io/pytorch/pytorch:2.9.1-cuda13.0-cudnn9-runtime
 
-LABEL version="3.2" maintainer="siggnal460 <siggnal@proton.me>"
+LABEL version="3.3" maintainer="siggnal460 <siggnal@proton.me>"
 
-LABEL org.opencontainers.image.description "ComfyUI 0.8.0, pytorch 2.9.1, CUDA 13.0"
+LABEL org.opencontainers.image.description "ComfyUI 0.18.0, pytorch 2.9.1, CUDA 13.0"
 
 ENV COMFYUI_ARGS=""
+
+ENV TORCH_USE_CUDA_DSA=1
+
+ENV CUDA_LAUNCH_BLOCKING=1
+
+ENV PYTORCH_ALLOC_CONF=expandable_segments:True
 
 RUN apt update --assume-yes && \
     apt install --assume-yes \
         git \
-    	sudo \
+        sudo \
         libgl1-mesa-glx \
         ffmpeg \
         libglib2.0-0 && \
@@ -18,7 +24,7 @@ RUN apt update --assume-yes && \
 
 RUN git clone https://github.com/comfyanonymous/ComfyUI.git /app && \
     cd /app && \
-    git -c advice.detachedHead=false checkout tags/v0.8.0
+    git -c advice.detachedHead=false checkout tags/v0.18.0
 
 RUN pip install --root-user-action=ignore \
     --requirement /app/requirements.txt
@@ -28,6 +34,9 @@ RUN /opt/conda/bin/python -m pip install --root-user-action=ignore --pre \
 
 RUN /opt/conda/bin/python -m pip install --root-user-action=ignore --pre \
     matrix-nio
+
+RUN /opt/conda/bin/python -m pip install --root-user-action=ignore --pre \
+    protobuf
 
 WORKDIR /app
 
