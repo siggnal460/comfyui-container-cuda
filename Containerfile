@@ -1,16 +1,25 @@
-FROM docker.io/pytorch/pytorch:2.9.1-cuda13.0-cudnn9-runtime
+FROM docker.io/pytorch/pytorch:2.13.0-cuda13.0-cudnn9-runtime
 
-LABEL version="3.1" maintainer="siggnal460 <siggnal@proton.me>"
+LABEL version="3.5.1" maintainer="siggnal460 <siggnal@proton.me>"
 
-LABEL org.opencontainers.image.description "ComfyUI 0.7.0, ComfyUI-Manager 4.0.4, pytorch 2.9.1, CUDA 13.0"
+LABEL org.opencontainers.image.description "ComfyUI 0.31.0, pytorch 2.13.0, CUDA 13.0"
 
 ENV COMFYUI_ARGS=""
+
+ENV TORCH_USE_CUDA_DSA=1
+
+ENV CUDA_LAUNCH_BLOCKING=1
+
+ENV PYTORCH_ALLOC_CONF=expandable_segments:True
+
+ENV PIP_BREAK_SYSTEM_PACKAGES=1
 
 RUN apt update --assume-yes && \
     apt install --assume-yes \
         git \
-    	sudo \
-        libgl1-mesa-glx \
+        sudo \
+        libgl1 \
+        libglx-mesa0 \
         ffmpeg \
         libglib2.0-0 && \
     apt clean && \
@@ -18,15 +27,23 @@ RUN apt update --assume-yes && \
 
 RUN git clone https://github.com/comfyanonymous/ComfyUI.git /app && \
     cd /app && \
-    git -c advice.detachedHead=false checkout tags/v0.7.0
+    git -c advice.detachedHead=false checkout tags/v0.31.0
 
-RUN git clone https://github.com/ltdrdata/ComfyUI-Manager.git /opt/comfyui-manager && \
-    cd /opt/comfyui-manager && \
-    git -c advice.detachedHead=false checkout tags/4.0.4
+RUN /usr/bin/python3 -m pip install --root-user-action=ignore \
+    --no-cache-dir \
+    --requirement /app/requirements.txt
 
-RUN pip install --root-user-action=ignore \
-    --requirement /app/requirements.txt \
-    --requirement /opt/comfyui-manager/requirements.txt
+RUN /usr/bin/python3 -m pip install --root-user-action=ignore --pre \
+    --no-cache-dir \
+    comfyui_manager
+
+RUN /usr/bin/python3 -m pip install --root-user-action=ignore --pre \
+    --no-cache-dir \
+    matrix-nio
+
+RUN /usr/bin/python3 -m pip install --root-user-action=ignore --pre \
+    --no-cache-dir \
+    protobuf
 
 WORKDIR /app
 
