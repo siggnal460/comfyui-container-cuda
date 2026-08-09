@@ -16,7 +16,8 @@ RUN apt update --assume-yes && \
     apt install --assume-yes \
         git \
         sudo \
-        libgl1-mesa-glx \
+        libgl1 \
+        libglx-mesa0 \
         ffmpeg \
         libglib2.0-0 && \
     apt clean && \
