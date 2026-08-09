@@ -20,6 +20,7 @@ RUN apt update --assume-yes && \
         libglx-mesa0 \
         ffmpeg \
         libglib2.0-0 && \
+        python3-venv && \
     apt clean && \
     rm -rf /var/lib/apt/lists/*
 
