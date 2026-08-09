@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+export PIP_BREAK_SYSTEM_PACKAGES=1
+
 emphatic_echo() {
   BOLD="\033[1m"
   RESET="\033[0m"
@@ -64,7 +66,7 @@ else
   id -u $PUID >/dev/null 2>&1 || useradd --uid $PUID --gid $PGID --create-home comfyui-user
   chown --recursive $PUID:$PGID /app
   export PATH=$PATH:/home/comfyui-user/.local/bin
-  sudo_cmd="sudo --set-home --preserve-env=PATH --user #$PUID "
+  sudo_cmd="sudo --set-home --preserve-env=PATH --preserve-env=PIP_BREAK_SYSTEM_PACKAGES --user #$PUID "
   launch_cmd="${sudo_cmd}${launch_cmd}"
   emphatic_echo "Running container as UID $PUID and GID $PGID..."
 fi
