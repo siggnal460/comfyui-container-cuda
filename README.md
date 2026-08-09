@@ -2,17 +2,17 @@
 
 A simple ComfyUI and ComfyUI-Manager container.
 
-> [!TIP]
-> Custom node compatability (while generally good) is not guaranteed to work with this container. If you run into issue, best you can try is to switch to the custom node's "nightly" branch if it has one. Beware the "Try Fix" button in ComfyUI-Manager, it *can* work but it may also overwrite some packages with older versions and break things.
+> [!IMPORTANT]
+> Custom node compatability (while generally good) is not guaranteed to work with this container.
 
 ## Installation
 
-Podman is used with these examples as that is what I use. I don't imagine you would need to make many tweaks (if at all) to use these examples with Docker, however.
+Podman is used with these examples as that is what I use. I don't imagine you would need to make many tweaks to use these examples with Docker, however.
 
-> [!IMPORTANT]
-> Because Python dependencies are installed on container start, when installing custom nodes you will probably need to restart the container completely (i.e. `podman restart comfyui`) for it to work. This also means the more custom nodes you have, the longer the startup process will be. This only applies to a container cold start, however, not when doing so from within ComfyUI e.g. with the "Restart" button within ComfyUI-Manager.
+> [!TIP]
+> Because Python dependencies are installed on container start, when installing custom nodes you will probably need to restart the container completely (i.e. `podman restart comfyui`) for it to work. This also means the more custom nodes you have, the longer the startup process will be. This only applies to a container cold start, however, not when doing so from within ComfyUI.
 
-> [!IMPORTANT]
+> [!TIP]
 > You may need to change the settings in your userdata folder in __manager/config.ini in order to install custom nodes or perform other actions
 
 ### podman-compose
@@ -32,14 +32,13 @@ podman run \
     --volume "</path/to/input>:/app/input:rw" \
     --volume "</path/to/output>:/app/output:rw" \
     --volume "</path/to/userdata>:/app/user:rw" \
-    --network="host"
     --gpus all \
     ghcr.io/siggnal460/comfyui-container-cuda:latest
 ```
 
 ### Nix OCI Container
 
-Tested on NixOS 25.11 'Xantusia'
+Tested on NixOS 26.05 'Yarara'
 
 ```nix
 virtualisation.oci-containers.containers = {
@@ -73,11 +72,11 @@ You can pass additional arguments to ComfyUI's main.py script via this env varia
 
 ### PUID and PGID
 
-Set PUID and PGID environmental variables to the user running the ComfyUI service, I recommend using a service account for this. If these are not set, the container will be run by the user running the container. If using PUID and PGID, ensure whatever folders you mount in the container with the "volume" flag are accessible to that UID and GID.
+In cases you don't want to run rootless, you can also set the PUID and PGID environmental variables to the user running the ComfyUI service on the host. I recommend using a service account for this. If these are not set, the container will be run by the user running the container. If using PUID and PGID, ensure whatever folders you mount in the container with the "volume" flag are accessible to that UID and GID.
 
 ## Versioning
 
-Major versions of the container follow CUDA versioning. Ensure you use a container version matching your host machines CUDA version.
+Major versions of the container follow CUDA versioning. Ensure you use a container version matching your host machines CUDA version. Currently only CUDA 13.0 is updated.
 
 | Major Version | CUDA Version |
 | --- | --- |
