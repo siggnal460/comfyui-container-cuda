@@ -29,19 +29,19 @@ RUN git clone https://github.com/comfyanonymous/ComfyUI.git /app && \
     cd /app && \
     git -c advice.detachedHead=false checkout tags/v0.31.0
 
-RUN pip install --root-user-action=ignore \
+RUN /usr/bin/python3 -m pip install --root-user-action=ignore \
     --no-cache-dir \
     --requirement /app/requirements.txt
 
-RUN pip install --root-user-action=ignore --pre \
+RUN /usr/bin/python3 -m pip install --root-user-action=ignore --pre \
     --no-cache-dir \
     comfyui_manager
 
-RUN pip install --root-user-action=ignore --pre \
+RUN /usr/bin/python3 -m pip install --root-user-action=ignore --pre \
     --no-cache-dir \
     matrix-nio
 
-RUN pip install --root-user-action=ignore --pre \
+RUN /usr/bin/python3 -m pip install --root-user-action=ignore --pre \
     --no-cache-dir \
     protobuf
 
