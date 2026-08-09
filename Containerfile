@@ -12,6 +12,8 @@ ENV CUDA_LAUNCH_BLOCKING=1
 
 ENV PYTORCH_ALLOC_CONF=expandable_segments:True
 
+ENV PIP_BREAK_SYSTEM_PACKAGES=1
+
 RUN apt update --assume-yes && \
     apt install --assume-yes \
         git \
@@ -20,7 +22,6 @@ RUN apt update --assume-yes && \
         libglx-mesa0 \
         ffmpeg \
         libglib2.0-0 && \
-        python3-venv && \
     apt clean && \
     rm -rf /var/lib/apt/lists/*
 
@@ -28,21 +29,19 @@ RUN git clone https://github.com/comfyanonymous/ComfyUI.git /app && \
     cd /app && \
     git -c advice.detachedHead=false checkout tags/v0.31.0
 
-RUN python -m venv /opt/venv
-
-RUN /opt/venv/bin/python -m pip install --root-user-action=ignore \
+RUN pip install --root-user-action=ignore \
     --no-cache-dir \
     --requirement /app/requirements.txt
 
-RUN /opt/venv/bin/python -m pip install --root-user-action=ignore --pre \
+RUN pip install --root-user-action=ignore --pre \
     --no-cache-dir \
     comfyui_manager
 
-RUN /opt/venv/bin/python -m pip install --root-user-action=ignore --pre \
+RUN pip install --root-user-action=ignore --pre \
     --no-cache-dir \
     matrix-nio
 
-RUN /opt/venv/bin/python -m pip install --root-user-action=ignore --pre \
+RUN pip install --root-user-action=ignore --pre \
     --no-cache-dir \
     protobuf
 
