@@ -27,7 +27,7 @@ RUN git clone https://github.com/comfyanonymous/ComfyUI.git /app && \
     cd /app && \
     git -c advice.detachedHead=false checkout tags/v0.31.0
 
-RUN pip install --root-user-action=ignore \
+RUN /opt/conda/bin/pip install --root-user-action=ignore \
     --requirement /app/requirements.txt
 
 RUN /opt/conda/bin/python -m pip install --root-user-action=ignore --pre \
@@ -35,9 +35,6 @@ RUN /opt/conda/bin/python -m pip install --root-user-action=ignore --pre \
 
 RUN /opt/conda/bin/python -m pip install --root-user-action=ignore --pre \
     matrix-nio
-
-RUN /opt/conda/bin/python -m pip install --root-user-action=ignore --pre \
-    protobuf
 
 RUN /opt/conda/bin/python -m pip install --root-user-action=ignore --pre \
     protobuf
