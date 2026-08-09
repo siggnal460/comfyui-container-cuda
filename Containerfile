@@ -27,17 +27,20 @@ RUN git clone https://github.com/comfyanonymous/ComfyUI.git /app && \
     cd /app && \
     git -c advice.detachedHead=false checkout tags/v0.31.0
 
-RUN pip install --root-user-action=ignore \
-    --requirement /app/requirements.txt \
-    --break-system-packages
+RUN python -m pip install --root-user-action=ignore \
+    --break-system-packages \
+    --requirement /app/requirements.txt
 
-RUN /opt/conda/bin/python -m pip install --root-user-action=ignore --pre \
+RUN python -m pip install --root-user-action=ignore --pre \
+    --break-system-packages \
     comfyui_manager
 
-RUN /opt/conda/bin/python -m pip install --root-user-action=ignore --pre \
+RUN python -m pip install --root-user-action=ignore --pre \
+    --break-system-packages \
     matrix-nio
 
-RUN /opt/conda/bin/python -m pip install --root-user-action=ignore --pre \
+RUN python -m pip install --root-user-action=ignore --pre \
+    --break-system-packages \
     protobuf
 
 WORKDIR /app
