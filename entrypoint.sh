@@ -45,7 +45,7 @@ for custom_node_directory in /app/custom_nodes/*; do
     custom_node_name=${custom_node_directory##*/}
     custom_node_name=${custom_node_name//[-_]/ }
     emphatic_echo "Installing requirements for $custom_node_name..."
-    /usr/bin/python3 -m pip install --root-user-action=ignore --requirement "$custom_node_directory/requirements.txt" 2> >(while read line; do echo -e "\e[31m$line\e[0m"; done)
+    /usr/bin/python3 -m pip install --break-system-packages --root-user-action=ignore --requirement "$custom_node_directory/requirements.txt" 2> >(while read line; do echo -e "\e[31m$line\e[0m"; done)
   fi
 done
 
