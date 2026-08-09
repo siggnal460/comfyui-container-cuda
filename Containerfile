@@ -27,8 +27,9 @@ RUN git clone https://github.com/comfyanonymous/ComfyUI.git /app && \
     cd /app && \
     git -c advice.detachedHead=false checkout tags/v0.31.0
 
-RUN /opt/conda/bin/pip install --root-user-action=ignore \
-    --requirement /app/requirements.txt
+RUN pip install --root-user-action=ignore \
+    --requirement /app/requirements.txt \
+    --break-system-packages
 
 RUN /opt/conda/bin/python -m pip install --root-user-action=ignore --pre \
     comfyui_manager
