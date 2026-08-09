@@ -1,6 +1,6 @@
 FROM docker.io/pytorch/pytorch:2.13.0-cuda13.0-cudnn9-runtime
 
-LABEL version="3.5" maintainer="siggnal460 <siggnal@proton.me>"
+LABEL version="3.5.1" maintainer="siggnal460 <siggnal@proton.me>"
 
 LABEL org.opencontainers.image.description "ComfyUI 0.31.0, pytorch 2.13.0, CUDA 13.0"
 
